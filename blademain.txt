@@ -1,5 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
+print("Succes Load The Script ,and Just Testing 🤪")
+
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local runService = game:GetService("RunService")
 local workspace = game:GetService("Workspace")
