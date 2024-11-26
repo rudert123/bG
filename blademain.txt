@@ -1,5 +1,6 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
+local VirtualInputManager = game:GetService("VirtualInputManager")
 local runService = game:GetService("RunService")
 local workspace = game:GetService("Workspace")
 local players = game:GetService("Players")
@@ -31,6 +32,17 @@ if workspace:FindFirstChild("AbilityThingyk1212") then
         TruValue.Parent = game:GetService("Workspace")
         TruValue.Name = "AbilityThingyk1212"
         TruValue.Value = "Dash" --Change to Use other ability
+end
+
+local function parry()
+    if canParry then
+        canParry = false
+        VirtualInputManager:SendMouseButtonEvent(0, 0, 0, true, game, 0)
+        VirtualInputManager:SendMouseButtonEvent(0, 0, 0, false, game, 0)
+        task.delay(0.1, function()
+            canParry = true
+        end)
+    end
 end
 
 local Window = Rayfield:CreateWindow({
@@ -167,7 +179,7 @@ end
         local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
         
         if distanceToPlayer < 10 then
-            parryButtonPress:Fire()
+            parry()
         end
         local isCheckingRage = false
 
@@ -177,12 +189,12 @@ end
                     isCheckingRage = true
                     abilityButtonPress:Fire()
                     if not isWalkSpeedZero() then
-                        parryButtonPress:Fire()
+                        parry()
                     end
                     isCheckingRage = false
                 end
             else
-                parryButtonPress:Fire()
+                parry()
             end
         end
     end
